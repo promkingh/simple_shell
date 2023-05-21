@@ -35,7 +35,22 @@ typedef struct built_in
 
 /****** PROTOTYPES ******/
 
-
+/*** 	STRING PROTOTYPES ***/
+int _putchar(char c);
+int _isalpha(int c);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+char *_strncpy(char *dest, char *src, int n);
+void _puts(char *str);
+char *_strcat(char *dest, char *src);
+char *_strchr(char *s, char c);
+char *_strdup(char *str);
+int _atoi(char *s);
+int _strcmp(char *s1, char *s2);
+void array_rev(char *arr, int n);
+int _strncmp(const char *s1, const char *s2, size_t n);
+int intlen(int num);
+char *_itoa(unsigned int n);
 
 
 
