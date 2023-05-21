@@ -51,7 +51,8 @@ void array_rev(char *arr, int n);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int intlen(int num);
 char *_itoa(unsigned int n);
-
+unsigned int delim_checker(char a, const char *str);
+char *_strtok(char *str, const char *delim);
 
 
 #endif /* SHELL_H */
