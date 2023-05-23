@@ -35,7 +35,7 @@ typedef struct built_in
 
 /****** PROTOTYPES ******/
 
-/*** 	STRING PROTOTYPES ***/
+/*** STRING PROTOTYPES ***/
 int _putchar(char c);
 int _isalpha(int c);
 int _strlen(char *s);
@@ -51,7 +51,6 @@ void array_rev(char *arr, int n);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int intlen(int num);
 char *_itoa(unsigned int n);
-unsigned int delim_checker(char a, const char *str);
 char *_strtok(char *str, const char *delim);
 
 
