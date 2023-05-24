@@ -56,5 +56,10 @@ int _atoi(char *str);
 char *_itoa(unsigned int n);
 char *_strtok(char *str, const char *delim);
 
+/*** MEMORY PROTOTYPES ***/
+void *malloc_checked(unsigned int b);
+char *_memcpy(char *dest, char *src, unsigned int n);
+void *_calloc(unsigned int nmemb, unsigned int size);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 #endif /* SHELL_H */
