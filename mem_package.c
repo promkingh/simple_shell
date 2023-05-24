@@ -1,10 +1,11 @@
 #include "shell.h"
+
 /**
  * malloc_checked - aloocates memory using malloc
  * @b: number of bytes to allocate
  * Return: pointer to allocated memory or exits with value 98 on NULL
  */
-void *malloc_checked(unsigned int b)
+void *_malloc(unsigned int b)
 {
 	void *mal;
 
@@ -91,3 +92,5 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	return (ptr);
 }
+
+

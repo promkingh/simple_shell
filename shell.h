@@ -5,7 +5,7 @@
 /*** MACROS ***/
 #define BUFSIZE 1024
 #define DELIM " \n\t\r\a"
-
+#define PRINT(s) (write(STDOUT_FILENO, s, _strlen(s)))
 
 /*** Libraries ***/
 #include <stdio.h>
@@ -35,8 +35,16 @@ typedef struct built_in
 
 /****** PROTOTYPES ******/
 
-/*** HANDLERS ***/
+/*** MAIN ***/
 
+/*** WRITE ***/
+void _prompt();
+void disp_error(char *in, int count, char *argv[]);
+
+/*** HANDLERS ***/
+void handle_hash_caution(char *buff);
+void handle_seg(int sig);
+void handle_sigint(int sig);
 
 /*** STRING PROTOTYPES ***/
 int _putchar(char c);
