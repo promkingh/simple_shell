@@ -81,7 +81,10 @@ int handle_built_in(char **comm, int err);
 /*** BUILD PROTOTYPES ***/
 char **process_comm(char *in);
 
-/*** STRIP ***/
+/*** STRIP PROTOTYPES ***/
+void _strip_spaces(char *str);
+
+
 
 
 /*** STRING PROTOTYPES ***/
@@ -114,5 +117,20 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 void *_calloc(unsigned int nmemb, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void _free_all(char **comm, char *buff);
+char *_memset(char *s, char b, unsigned int n);
+
+/*** ENVIRONMENT PROTOTYPES ***/
+void create_env(char ***env);
+int print_environment(void);
+void addnewenv(struct Node **head, const char *name, const char *value);
+void updateenv(struct Node *head);
+int set_env(const char *name, const char *value);
+int unset_env(const char *name);
+char *get_env(char *name);
+
+
+
+
+
 
 #endif /* SHELL_H */

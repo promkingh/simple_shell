@@ -1,12 +1,11 @@
 #include "shell.h"
-
 /**
  * create_env - create an array of environmen variables
+ *
  * @env: array of environment vars
  *
  * Return: nothing
  */
-
 void create_env(char ***env)
 {
 	int len, a;
@@ -30,4 +29,134 @@ void create_env(char ***env)
 		}
 	}
 	(*env)[a] = NULL;
+}
+/**
+ * print_environment - prints the environment variables
+ *
+ * Return: 0
+ */
+int print_environment(void)
+{
+	char **envptr;
+	node_t *list_head;
+
+	list_head = NULL;
+
+	for (envptr = environ; *envptr != NULL; envptr++)
+	{
+		add_node(&list_head, new_node(*envptr));
+	}
+
+	print_list(list_head);
+	free_list(list_head);
+
+	return (0);
+}
+/**
+ * addnewenv - adds a new environment variable to a linked list
+ *
+ * @head: linked list argument
+ * @name: character argument
+ * @value: character argument
+ *
+ * Return: void
+ */
+void addnewenv(struct Node **head, const char *name, const char *value)
+{
+	size_t nmlen, valuelen;
+	char *newenv;
+	node_t *currnode;
+
+	nmlen = _strlen(name);
+	valuelen = _strlen(value);
+	currnode = *head;
+	newenv = malloc(nmlen + valuelen + 2);
+
+	if (newenv == NULL)
+	{
+		return;
+	}
+
+	_memcpy(newenv, (void *)name, nmlen);
+	newenv[nmlen] = '=';
+	_memcpy(newenv + nmlen + 1, (void *)value, valuelen);
+	newenv[nmlen + valuelen + 1] = '\0';
+
+	while (currnode != NULL)
+	{
+	if (_strncmp(currnode->str, name, nmlen) == 0 && currnode->str[nmlen] == '=')
+	{
+		free(currnode->str);
+		currnode->str = newenv;
+		return;
+	}
+	currnode = currnode->next;
+	}
+
+	add_node(head, new_node(newenv));
+}
+/**
+ * updateenv - updates the environ variable with variables stored
+ * in a linked list
+ *
+ * @head: linked list argument
+ *
+ * Return: void
+ */
+void updateenv(struct Node *head)
+{
+	size_t nodecount, x;
+	node_t *currnode;
+	char **newenv;
+
+	nodecount = 0;
+	currnode = *head;
+
+	while (currnode != NULL)
+	{
+		nodecount++;
+		currnode = currnode->next;
+	}
+
+	newenv = (char **)malloc((nodecount + 1) * sizeof(char *));
+	if (newenv == NULL)
+	{
+		return;
+	}
+
+	currnode = head;
+	for (x = 0; x < nodecount; x++)
+	{
+		newenv[x] = currnode->str;
+		currnode = currnode->next;
+	}
+
+	newenv[nodecount] = NULL;
+	environ = newenv;
+}
+/**
+ * set_env - sets environment variables
+ *
+ * @name: character argument
+ * @value: character argument
+ *
+ * Return: 0 Success
+ */
+int set_env(const char *name, const char *value)
+{
+	char **envptr;
+	node_t *list_head;
+
+	list_head = NULL;
+
+	for (envptr = environ; *envptr != NULL; envptr++)
+	{
+		add_node(&list_head, new_node(*envptr));
+	}
+
+	addnewenv(&list_head, name, value);
+	updateenv(list_head);
+	free_list(list_head);
+
+	return (0);
 }
