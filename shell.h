@@ -1,6 +1,8 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+/*** ENVIRONMENT VARIABLE ***/
+extern char **environ;
 
 /*** MACROS ***/
 #define BUFSIZE 1024
@@ -20,7 +22,7 @@
 #include <signal.h>
 #include <linux/limits.h>
 
-
+/****** STRUCTURES ******/
 /**
  * struct built_in - struct for built-in shell commands
  * @cmd: pointer to array of commands
@@ -29,22 +31,44 @@
 typedef struct built_in
 {
 	char *cmd;
-	int (*func)(char **line, int err);
+	int (*func)(char **buff, int err);
 } buil_t;
+
+/**
+ * struct aliases - struct for shell alias
+ * @name: name of alias
+ * @alias_comm: command for alias
+ */
+
+typedef struct aliases
+{
+	char *name;
+	char *alias_comm;
+} alias_t;
 
 
 /****** PROTOTYPES ******/
 
 /*** MAIN ***/
+int main(int argc, char *argv[]);
+char *_getline(void);
 
 /*** WRITE ***/
 void _prompt();
 void disp_error(char *in, int count, char *argv[]);
+void write_unsig_int(unsigned int n);
+void int_to_unsig(int n);
+void write_alias(alias_t alias);
 
 /*** HANDLERS ***/
 void handle_hash_caution(char *buff);
 void handle_seg(int sig);
 void handle_sigint(int sig);
+int handle_built_in(char **comm, int err);
+
+/*** BUILD PROTOTYPES ***/
+char ** process_comm(char *in);
+
 
 /*** STRING PROTOTYPES ***/
 int _putchar(char c);
@@ -65,9 +89,10 @@ char *_itoa(unsigned int n);
 char *_strtok(char *str, const char *delim);
 
 /*** MEMORY PROTOTYPES ***/
-void *malloc_checked(unsigned int b);
+void *_malloc(unsigned int b);
 char *_memcpy(char *dest, char *src, unsigned int n);
 void *_calloc(unsigned int nmemb, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void _free_all(char **comm, char *buff);
 
 #endif /* SHELL_H */

@@ -66,3 +66,13 @@ void int_to_unsig(int n)
 		int_to_unsig(num / 10);
 	_putchar((num % 10) + '0');
 }
+
+void write_alias(alias_t alias)
+{
+	PRINT("alias  ");
+	PRINT(alias->alias_comm);
+	PRINT("='");
+	PRINT(alias->alias_comm);
+	PRINT("'");
+	PRINT("\n");
+}

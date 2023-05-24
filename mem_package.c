@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * malloc_checked - aloocates memory using malloc
+ * _malloc - aloocates memory using malloc
  * @b: number of bytes to allocate
  * Return: pointer to allocated memory or exits with value 98 on NULL
  */
@@ -93,4 +93,18 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	return (ptr);
 }
 
+/**
+ * _free_all - free array of char pointers
+ * @comm: pointer
+ * @buff: buffer array
+ *
+ * Return: Nothing
+ */
 
+void _free_all(char **comm, char *buff)
+{
+	free(comm);
+	free(buff);
+	comm = NULL;
+	buff = NULL;
+}

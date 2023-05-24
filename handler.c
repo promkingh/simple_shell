@@ -47,3 +47,33 @@ void handle_sigint(int sig)
 
 	printf("\n");
 }
+
+/**
+ * handle_built_in - handle built-in commands
+ * @comm: array of commands
+ * @err: error
+ *
+ * Return: function on success or -1 on failure
+ */
+int handle_built_in(char **comm, int err)
+{
+	buil_t sel[] = {
+		{"exit", _exit}, {"env", }, {"setenv", },
+		{"unsetenv", }, {"cd", },
+		{NULL, NULL}
+	};
+
+	int a = 0;
+
+	while ((sel + a)->cmd)
+	{
+		if (_strcmp(comm[0], (sel + a)->cmd) == 0)
+			return ((sel + a)->func(comm, err));
+		a++;
+	}
+
+	return (-1);
+}
+
+/**
+ * handle_alias - handle alias
