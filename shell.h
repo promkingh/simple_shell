@@ -6,8 +6,10 @@ extern char **environ;
 
 /*** MACROS ***/
 #define BUFSIZE 1024
+#define MAX_ARGS 1024
 #define DELIM " \n\t\r\a"
 #define PRINT(s) (write(STDOUT_FILENO, s, _strlen(s)))
+#define MAX_ALIAS 100
 
 /*** Libraries ***/
 #include <stdio.h>
@@ -39,12 +41,22 @@ typedef struct built_in
  * @name: name of alias
  * @alias_comm: command for alias
  */
-
 typedef struct aliases
 {
 	char *name;
 	char *alias_comm;
 } alias_t;
+
+/**
+ * struct Node - singly linked list
+ * @str: buffer array
+ * @next: pointer to the next node
+ */
+typedef struct Node
+{
+	char *str;
+	struct Node *next;
+} node_t;
 
 
 /****** PROTOTYPES ******/
@@ -54,7 +66,7 @@ int main(int argc, char *argv[]);
 char *_getline(void);
 
 /*** WRITE ***/
-void _prompt();
+void _prompt(void);
 void disp_error(char *in, int count, char *argv[]);
 void write_unsig_int(unsigned int n);
 void int_to_unsig(int n);
@@ -67,7 +79,9 @@ void handle_sigint(int sig);
 int handle_built_in(char **comm, int err);
 
 /*** BUILD PROTOTYPES ***/
-char ** process_comm(char *in);
+char **process_comm(char *in);
+
+/*** STRIP ***/
 
 
 /*** STRING PROTOTYPES ***/
@@ -87,6 +101,12 @@ int intlen(int num);
 int _atoi(char *str);
 char *_itoa(unsigned int n);
 char *_strtok(char *str, const char *delim);
+
+/*** LINKED LIST ***/
+static node_t *new_node(char *str);
+static void add_node(node_t **h, node_t new_node);
+void print_list(node_t *h);
+void free_list(node_t *h);
 
 /*** MEMORY PROTOTYPES ***/
 void *_malloc(unsigned int b);
