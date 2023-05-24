@@ -1,7 +1,6 @@
 #include "shell.h"
 /**
  * _strtok - splits a string into a series of token using a character argument
- *
  * @str: string argument
  * @delim: delimiter character argument
  *
@@ -9,31 +8,31 @@
  */
 char *_strtok(char *str, const char *delim)
 {
-	static char *trk;
+	static char *tok;
 	char *ts;
 
 	if (str != NULL)
 	{
-		trk = str;
+		tok = str;
 	}
 	else
 	{
-		if (trk == NULL || *trk == '\0')
+		if (tok == NULL || *tok == '\0')
 		{
 			return (NULL);
 		}
 	}
 
-	ts = trk;
-	while (*trk != '\0')
+	ts = tok;
+	while (*tok != '\0')
 	{
-		if (*trk == *delim)
+		if (*tok == *delim)
 		{
-			*trk = '\0';
-			trk++;
+			*tok = '\0';
+			tok++;
 			return (ts);
 		}
-		trk++;
+		tok++;
 	}
 
 	return (ts);
