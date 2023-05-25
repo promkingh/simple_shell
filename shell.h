@@ -33,7 +33,7 @@ extern char **environ;
 typedef struct built_in
 {
 	char *cmd;
-	int (*func)(char **buff, int err);
+	int (*func)();
 } buil_t;
 
 /**
@@ -64,15 +64,19 @@ typedef struct Node
 /*** MAIN ***/
 int main(int argc, char *argv[]);
 char *_getline(void);
+ssize_t get_line(char **buff, size_t *size, FILE *stream);
 
 /*** WRITE ***/
 void _prompt(void);
-void disp_error(char *in, int count, char *argv[]);
+void disp_error(char *buff, int count, char *argv[]);
 void write_unsig_int(unsigned int n);
 void int_to_unsig(int n);
 void write_alias(alias_t alias);
 void _perror(char *argv[], char **comm, int n);
-int _printecho(char **command);
+
+/*** BUILT-IN ***/
+void _exi_t(char **comm, char *buff, char *argv[], int count);
+void _chdir(char **comm);
 
 
 /*** HANDLERS ***/
@@ -88,7 +92,10 @@ void read_file(char *filename, char *argv[]);
 
 
 /*** BUILD PROTOTYPES ***/
-char **process_comm(char *in);
+char **process_comm(char *buff);
+int execute_comm(char **comm, char *buff, char **argv, int count);
+int _path(char **comm);
+char *_build(char *tok, char *value);
 
 /*** STRIP PROTOTYPES ***/
 void _strip_spaces(char *str);
@@ -116,7 +123,7 @@ char *_strtok(char *str, const char *delim);
 
 /*** LINKED LIST ***/
 node_t *new_node(char *str);
-void add_node(node_t **h, node_t new_node);
+void add_node(node_t **h, node_t *new_node);
 void print_list(node_t *h);
 void free_list(node_t *h);
 
@@ -133,15 +140,10 @@ void create_env(char ***env);
 int _env(void);
 void add_new_env(node_t **h, const char *name, const char *value);
 void updateenv(node_t *h);
-int set_env(const char *name, const char *value);
-int unsetenv(const char *name);
-char *get_env(char *name);
+int _setenv(const char *name, const char *value);
+int _unsetenv(const char *name);
+char *_getenv(char *name);
 size_t _elemlen(char **arr);
-void _freeenv(char **env);
-
-/*** HISTORY PROTOTYPES ***/
-int disp_hist(__attribute__((unused))char **command, __attribute__((unused))int execstate);
-int fill_hist(char *userinput);
 
 
 #endif /* SHELL_H */

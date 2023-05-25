@@ -10,13 +10,13 @@ void _prompt(void)
 
 /**
  * disp_error - display Error bassed
- * @in: user input
+ * @buff: user input
  * @count: shell loop
  * @argv: prog name
  *
  * Return: Nothing
  */
-void disp_error(char *in, int count, char *argv[])
+void disp_error(char *buff, int count, char *argv[])
 {
 	char *err;
 
@@ -27,7 +27,7 @@ void disp_error(char *in, int count, char *argv[])
 	PRINT(err);
 	free(err);
 
-	PRINT(in);
+	PRINT(buff);
 	PRINT(": not found\n");
 }
 
@@ -67,6 +67,12 @@ void int_to_unsig(int n)
 	_putchar((num % 10) + '0');
 }
 
+/**
+ * write_alias - print aliases
+ * @alias: alias name
+ *
+ * Return: nothing
+ */
 void write_alias(alias_t alias)
 {
 	PRINT("alias  ");

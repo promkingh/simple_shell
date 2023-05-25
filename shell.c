@@ -3,14 +3,14 @@
 /**
  * main - Entry point for simple shell
  * @argc: argument count
- * @argv; pointer to argument array
+ * @argv: pointer to argument array
  *
  * Return: Exit
  */
 
 int main(int argc, char *argv[])
 {
-	char *in, **comm;
+	char *buff, **comm;
 	int a = ret = 0, status = 1;
 
 	if (argc > 1)
@@ -25,13 +25,28 @@ int main(int argc, char *argv[])
 
 		if (isatty(STDIN_FILE))
 			_prompt();
-		in = _getline();
-		if (in[0] == '\0')
+		buff = _getline();
+		if (buff[0] == '\0')
 			continue;
-		_history(in);
+		_history(buff);
 
-hell		comm = process_comm(in);
+		comm = process_comm(buff);
 		if (_strcmp(comm[0], "exit") == 0)
+			_exit(comm, buff, argv, a);
+		else if (_strcmp(comm[0], "alias") == 0)
 			;
+		else if (check_built_in(comm) == 0)
+		{
+			ret = handle_built_in(comm, ret);
+			_free_all(comm, buff);
+			continue;
+		}
+		else
+			ret = execute_comm(comm, buff, argv, a);
+
+		_free_all(comm, buff);
+	}
+	return (status);
+}
 
 

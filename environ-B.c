@@ -1,12 +1,12 @@
 #include "shell.h"
 /**
- * unset_env - deletes environment variables
+ * _unsetenv - deletes environment variables
  *
  * @name: character argument
  *
  * Return: 0 or -1
  */
-int unset_env(const char *name)
+int _unsetenv(const char *name)
 {
 	char **envptr, **tempenv;
 	size_t namelen;
@@ -31,13 +31,13 @@ int unset_env(const char *name)
 	return (-1);
 }
 /**
- * get_env - retrieves the value of an environment variable
+ * _getenv - retrieves the value of an environment variable
  *
  * @name: character argument
  *
  * Return: character
  */
-char *get_env(char *name)
+char *_getenv(char *name)
 {
 	size_t namelen;
 	int x;

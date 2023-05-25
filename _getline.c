@@ -29,7 +29,7 @@ char *_getline(void)
 			exit(EXIT_SUCCESS);
 		}
 		buff[a] = ch;
-		if (buff[0] == \n'')
+		if (buff[0] == '\n')
 		{	free(buff);
 			return ("\0");
 		}
