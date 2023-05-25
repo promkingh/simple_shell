@@ -1,10 +1,49 @@
 #include "shell.h"
 
 /**
+ * file_exit - shell exit case for files
+ * @buff: line from file
+ * @comm: command
+ * @fd: file descriptor
+ *
+ * Return: nothing
+ */
+
+void file_exit(char **comm, char *buff, FILE *fd)
+{
+	int status, a;
+
+	status = a = 0;
+	if (comm[1] == NULL)
+	{
+		free(buff);
+		free(comm);
+		close(fd);
+		exit(errno);
+	}
+
+	while (comm[1][a])
+	{
+		if (!isdigit(comm[1][a]))
+		{
+			perror(" illegal numer");
+			return;
+		}
+		a++;
+	}
+	status = _atoi(comm[1]);
+
+	free(buff);
+	free(comm);
+	close(fd);
+	exit(status);
+}
+
+/**
  * access_file - parse, check, fork, wait, execute in a file
  * @buff: line from file
  * @count: error counter
- * @fd: file descriptot
+ * @fd: file descriptor
  * @argv: program name
  *
  * Return: nothing
@@ -47,7 +86,8 @@ void read_file(char *filename, char *argv[])
 	int a;
 
 	len = a = 0;
-	if ((fd = open(filename, O_RDONLY)) == NULL)
+	fd = open(filename, O_RDONLY);
+	if (fd == NULL)
 		exit(EXIT_FAILURE);
 
 	nread = get_line(&buff, &len, fd);

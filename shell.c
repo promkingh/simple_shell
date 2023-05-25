@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 			continue;
 		_history(in);
 
-		comm = process_comm(in);
+hell		comm = process_comm(in);
 		if (_strcmp(comm[0], "exit") == 0)
 			;
 
