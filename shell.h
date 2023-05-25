@@ -79,6 +79,11 @@ void handle_seg(int sig);
 void handle_sigint(int sig);
 int handle_built_in(char **comm, int err);
 
+/*** FILE OPERATIONS ***/
+void file_exit(char **comm, char *buff, FILE *fd);
+void access_file(char *buff, int count, FILE *fd, char *argv[]);
+void read_file(char *filename, char *argv[]);
+
 
 /*** BUILD PROTOTYPES ***/
 char **process_comm(char *in);
