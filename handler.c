@@ -58,8 +58,9 @@ void handle_sigint(int sig)
 int handle_built_in(char **comm, int err)
 {
 	buil_t sel[] = {
-		{"exit", _exit}, {"env", }, {"setenv", },
-		{"unsetenv", }, {"cd", },
+		{"exit", _exit}, {"env", _env}, {"setenv", _setenv},
+		{"unsetenv", _unsetenv}, {"cd", _chdir}, {"echo", _chdir},
+		{"alias", alias_comm}, {"cd", _chdir}, {"echo", _chdir},
 		{NULL, NULL}
 	};
 
@@ -76,4 +77,5 @@ int handle_built_in(char **comm, int err)
 }
 
 /**
- * handle_alias - handle alias
+ * handle_alias - handle alias commands
+ *

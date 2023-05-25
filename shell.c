@@ -32,5 +32,6 @@ int main(int argc, char *argv[])
 
 		comm = process_comm(in);
 		if (_strcmp(comm[0], "exit") == 0)
-		{
+			;
+
 

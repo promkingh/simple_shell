@@ -10,7 +10,7 @@ void create_env(char ***env)
 {
 	int len, a;
 
-	len = _strlen(environ);
+	len = _elemlen(environ);
 	*env = malloc(sizeof(char *) * (len + 1));
 	if (*env == NULL)
 	{
@@ -35,7 +35,7 @@ void create_env(char ***env)
  *
  * Return: 0
  */
-int print_environment(void)
+int _env(void)
 {
 	char **envptr;
 	node_t *list_head;
@@ -53,15 +53,15 @@ int print_environment(void)
 	return (0);
 }
 /**
- * addnewenv - adds a new environment variable to a linked list
+ * add_new_env - adds a new environment variable to a linked list
  *
- * @head: linked list argument
+ * @h: linked list argument
  * @name: character argument
  * @value: character argument
  *
  * Return: void
  */
-void addnewenv(struct Node **head, const char *name, const char *value)
+void add_new_env(node_t **h, const char *name, const char *value)
 {
 	size_t nmlen, valuelen;
 	char *newenv;
@@ -69,7 +69,7 @@ void addnewenv(struct Node **head, const char *name, const char *value)
 
 	nmlen = _strlen(name);
 	valuelen = _strlen(value);
-	currnode = *head;
+	currnode = *h;
 	newenv = malloc(nmlen + valuelen + 2);
 
 	if (newenv == NULL)
@@ -93,24 +93,23 @@ void addnewenv(struct Node **head, const char *name, const char *value)
 	currnode = currnode->next;
 	}
 
-	add_node(head, new_node(newenv));
+	add_node(h, new_node(newenv));
 }
 /**
- * updateenv - updates the environ variable with variables stored
- * in a linked list
- *
- * @head: linked list argument
+ * update_env - updates the environ variable with variables stored
+ *		in a linked list
+ * @h: linked list argument
  *
  * Return: void
  */
-void updateenv(struct Node *head)
+void update_env(node_t *h)
 {
 	size_t nodecount, x;
 	node_t *currnode;
 	char **newenv;
 
 	nodecount = 0;
-	currnode = *head;
+	currnode = *h;
 
 	while (currnode != NULL)
 	{
@@ -124,7 +123,7 @@ void updateenv(struct Node *head)
 		return;
 	}
 
-	currnode = head;
+	currnode = h;
 	for (x = 0; x < nodecount; x++)
 	{
 		newenv[x] = currnode->str;

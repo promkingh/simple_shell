@@ -47,7 +47,7 @@ char *get_env(char *name)
 
 	while (environ[x] != NULL)
 	{
-		if (_strncmp(environ[x], name, namelen) == 0 && environ[x]][namelen] == '=')
+		if (_strncmp(environ[x], name, namelen) == 0 && environ[x][namelen] == '=')
 		{
 			return (&(environ[x][namelen + 1]));
 		}
@@ -55,4 +55,19 @@ char *get_env(char *name)
 	}
 
 	return (NULL);
+}
+
+/**
+ * _elemlen - count the length of variables
+ * @arr: array of variables
+ *
+ * Return: length of array
+ */
+size_t _elemlen(char **arr)
+{
+	size_t a = 0;
+
+	while (arr[a])
+		a++;
+	return (a);
 }

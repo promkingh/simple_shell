@@ -49,3 +49,48 @@ char *_getline(void)
 
 	return (buff);
 }
+
+/**
+ * get_line - read string input from stream or user
+ * @buff: buffer to store string
+ * @size: buffer size
+ * @stream: stream
+ *
+ * Return: input string
+ */
+ssize_t get_line(char **buff, size_t *size, FILE *stream)
+{
+	ssize_t nread;
+	int status, a;
+
+	if (*buff == NULL || *size == 0)
+	{
+		*size = BUFSIZE;
+		*buff = malloc(*size);
+		if (buff == NULL)
+			return (-1);
+	}
+
+	status = 1;
+	nread = 0;
+	while (status)
+	{
+		a = fgets(stream);
+		if (a == EOF)
+			break;
+		nread++;
+		(*buff)[nread] = a;
+		if ((size_t)nread == *size)
+		{
+			*size *= 2;
+			*buff = realloc(*buff, *size);
+			if (*buff == NULL)
+				return (-1);
+		}
+		if (a == '\n')
+			break;
+	}
+	(*buff)[nread] = '\0';
+
+	return (nread);
+}

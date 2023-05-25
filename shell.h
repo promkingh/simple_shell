@@ -71,12 +71,14 @@ void disp_error(char *in, int count, char *argv[]);
 void write_unsig_int(unsigned int n);
 void int_to_unsig(int n);
 void write_alias(alias_t alias);
+void _perror(char *argv[], char **comm, int n);
 
 /*** HANDLERS ***/
 void handle_hash_caution(char *buff);
 void handle_seg(int sig);
 void handle_sigint(int sig);
 int handle_built_in(char **comm, int err);
+
 
 /*** BUILD PROTOTYPES ***/
 char **process_comm(char *in);
@@ -106,8 +108,8 @@ char *_itoa(unsigned int n);
 char *_strtok(char *str, const char *delim);
 
 /*** LINKED LIST ***/
-static node_t *new_node(char *str);
-static void add_node(node_t **h, node_t new_node);
+node_t *new_node(char *str);
+void add_node(node_t **h, node_t new_node);
 void print_list(node_t *h);
 void free_list(node_t *h);
 
@@ -121,16 +123,13 @@ char *_memset(char *s, char b, unsigned int n);
 
 /*** ENVIRONMENT PROTOTYPES ***/
 void create_env(char ***env);
-int print_environment(void);
-void addnewenv(struct Node **head, const char *name, const char *value);
-void updateenv(struct Node *head);
+int _env(void);
+void add_new_env(node_t **h, const char *name, const char *value);
+void updateenv(node_t *h);
 int set_env(const char *name, const char *value);
-int unset_env(const char *name);
+int unsetenv(const char *name);
 char *get_env(char *name);
-
-
-
-
+size_t _elemlen(char **arr);
 
 
 #endif /* SHELL_H */
