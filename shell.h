@@ -72,6 +72,8 @@ void write_unsig_int(unsigned int n);
 void int_to_unsig(int n);
 void write_alias(alias_t alias);
 void _perror(char *argv[], char **comm, int n);
+int _printecho(char **command);
+
 
 /*** HANDLERS ***/
 void handle_hash_caution(char *buff);
@@ -135,6 +137,11 @@ int set_env(const char *name, const char *value);
 int unsetenv(const char *name);
 char *get_env(char *name);
 size_t _elemlen(char **arr);
+void _freeenv(char **env);
+
+/*** HISTORY PROTOTYPES ***/
+int disp_hist(__attribute__((unused))char **command, __attribute__((unused))int execstate);
+int fill_hist(char *userinput);
 
 
 #endif /* SHELL_H */

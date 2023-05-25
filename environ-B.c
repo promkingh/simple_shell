@@ -71,3 +71,21 @@ size_t _elemlen(char **arr)
 		a++;
 	return (a);
 }
+/**
+ * _freeenv - frees an array of environment variables
+ *
+ * @env: array argument
+ *
+ * Return: void
+ */
+void _freeenv(char **env)
+{
+	int x;
+
+	x = 0;
+	while (env[x])
+	{
+		free(env[x]);
+		x++;
+	}
+}
