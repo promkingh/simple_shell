@@ -46,9 +46,10 @@ void handle_seg(int sig)
  */
 void handle_sigint(int sig)
 {
-	(void)sig;
-
-	printf("\n");
+	if (sig == SIGINT)
+	{
+		PRINT("\n");
+	}
 }
 
 /**

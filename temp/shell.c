@@ -13,7 +13,9 @@ int main(int argc, char *argv[])
 	char *buff, **comm;
 	int a, ret, status;
 
-	a = ret = 0, status = 1;
+	a = 0;
+	ret = 0;
+	status = 1;
 
 	if (argc > 1 || argv[1] != NULL)
 		read_file(argv[1], argv);
@@ -22,7 +24,7 @@ int main(int argc, char *argv[])
 	/*signal(SIGINT, handle_seg);
 	*/
 
-	_prompt();
+
 	while (status)
 	{
 		a++;
@@ -37,8 +39,6 @@ int main(int argc, char *argv[])
 		comm = process_comm(buff);
 		if (_strcmp(comm[0], "exit") == 0)
 			_exi_t(comm, buff, argv, a);
-		else if (_strcmp(comm[0], "alias") == 0)
-			;
 		else if (inspect_built_in(comm) == 0)
 		{
 			ret = handle_built_in(comm, ret);
