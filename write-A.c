@@ -1,4 +1,4 @@
-#include "Shell.h"
+#include "shell.h"
 
 /**
  * _prompt - display shell prompt
@@ -73,6 +73,7 @@ void int_to_unsig(int n)
  *
  * Return: nothing
  */
+/**
 void write_alias(alias_t alias)
 {
 	PRINT("alias  ");
@@ -81,4 +82,4 @@ void write_alias(alias_t alias)
 	PRINT(alias->alias_comm);
 	PRINT("'");
 	PRINT("\n");
-}
+}*/

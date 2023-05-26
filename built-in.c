@@ -45,22 +45,23 @@ void _exi_t(char **comm, char *buff, char *argv[], int count)
  * Return: nothing
  */
 
-void _chdir(char **comm)
+int _chdir(char **comm, int err)
 {
-	char *home = _getenv("HOME");
-	char *oldpwd = _getenv("OLDPWD");
-	char *pwd = _getenv("PWD");
+	char *home = getenv("HOME");
+	char *oldpwd = getenv("OLDPWD");
+	char *pwd = getenv("PWD");
 	char cwd[BUFSIZE];
 
+	(void)err;
 	if (comm[1] == NULL)
 	{
 		if (chdir(home) == -1)
 		{
 			perror("cd");
-			return;
+			return (-1);
 		}
-		_setenv("OLDPWD", pwd);
-		_setenv("pwd", oldpwd);
+		setenv("OLDPWD", pwd, 1);
+		setenv("pwd", oldpwd, 1);
 	}
 	else if (_strcmp(comm[1], "-") == 0)
 	{
@@ -69,10 +70,10 @@ void _chdir(char **comm)
 			if (chdir(oldpwd) == -1)
 			{
 				perror("cd");
-				return;
+				return (-1);
 			}
-			_setenv("OLDPWD", pwd);
-			_setenv("pwd", oldpwd);
+			setenv("OLDPWD", pwd, 1);
+			setenv("pwd", oldpwd, 1);
 		}
 	}
 	else
@@ -80,10 +81,12 @@ void _chdir(char **comm)
 		if (chdir(comm[1]) == -1)
 		{
 			perror("cd");
-			return;
+			return (-1);
 		}
 		getcwd(cwd, sizeof(cwd));
-		_setenv("OLDPWD", pwd);
-		_setenv("pwd", cwd);
+		setenv("OLDPWD", pwd, 1);
+		setenv("pwd", cwd, 1);
 	}
+
+	return (0);
 }

@@ -61,7 +61,7 @@ int _env(void)
  *
  * Return: void
  */
-void add_new_env(node_t **h, const char *name, const char *value)
+void add_new_env(node_t **h, char *name, char *value)
 {
 	size_t nmlen, valuelen;
 	char *newenv;

@@ -31,8 +31,11 @@ void handle_hash_caution(char *buff)
  */
 void handle_seg(int sig)
 {
-	printf("Segmentation fault (core dumped)\n");
-	exit(1);
+	if (sig)
+	{
+		printf("Segmentation fault (core dumped)\n");
+		exit(1);
+	}
 }
 
 /**
@@ -58,9 +61,7 @@ void handle_sigint(int sig)
 int handle_built_in(char **comm, int err)
 {
 	buil_t sel[] = {
-		{"env", _env}, {"setenv", _setenv},
-		{"unsetenv", _unsetenv}, {"cd", _chdir},
-		{"history", _history},
+		{"cd", _chdir}, {"history", disp_hist},
 		{NULL, NULL}
 	};
 

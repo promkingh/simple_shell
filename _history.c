@@ -10,17 +10,17 @@
  */
 int disp_hist(char **command, int execstate)
 {
-	(void)command;
-	(void)execstate;
+	char *fn, *cntstr;
 	FILE *fd;
-	char *fn, *linecon, *cntstr;
+	char *linecon = NULL;
 	size_t bufflen;
 	int linecount;
 
+	(void)command;
+	(void)execstate;
 	fn = ".shell_history";
 	bufflen = 0;
 	linecount = 0;
-	linecon = NULL;
 	fd = fopen(fn, "r");
 
 	if (fd == NULL)
@@ -28,7 +28,7 @@ int disp_hist(char **command, int execstate)
 		return (-1);
 	}
 
-	while ((get_line(&linecon, &bufflen, fd)) != -1)
+	while ((getline(&linecon, &bufflen, fd)) != -1)
 	{
 		linecount++;
 		cntstr = _itoa(linecount);
@@ -45,13 +45,13 @@ int disp_hist(char **command, int execstate)
 	return (0);
 }
 /**
- * fill_hist - writes the history of user input onto a file
+ * _hist - writes the history of user input onto a file
  *
  * @userinput: character argument
  *
  * Return: 1 or -1
  */
-int fill_hist(char *userinput)
+int _hist(char *userinput)
 {
 	char *fn;
 	int inputlen;

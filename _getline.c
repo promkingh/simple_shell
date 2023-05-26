@@ -14,12 +14,12 @@ char *_getline(void)
 
 	buff = malloc(sizeof(char) * BUFSIZE);
 	if (buff == NULL)
-	{	return (NULL);
 		free(buff);
+	{	return (NULL);
 	}
 	ch = a = 0;
-	while (ch != EOF && c != '\n')
-	{	rea_d = read(STDIN_FILENO, &c, 1);
+	while (ch != EOF && ch != '\n')
+	{	rea_d = read(STDIN_FILENO, &ch, 1);
 		if (rea_d == -1)
 		{	free(buff);
 			perror("Error: ");
@@ -35,7 +35,7 @@ char *_getline(void)
 		}
 		if ((a + 1) >= BUFSIZE)
 		{
-			buff = _realloc(buff, a + 1);
+			buff = realloc(buff, a + 1);
 			if (buff == NULL)
 			{
 				free(buff);
@@ -58,6 +58,7 @@ char *_getline(void)
  *
  * Return: input string
  */
+/*
 ssize_t get_line(char **buff, size_t *size, FILE *stream)
 {
 	ssize_t nread;
@@ -93,4 +94,4 @@ ssize_t get_line(char **buff, size_t *size, FILE *stream)
 	(*buff)[nread] = '\0';
 
 	return (nread);
-}
+}*/

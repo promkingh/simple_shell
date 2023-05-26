@@ -33,7 +33,7 @@ extern char **environ;
 typedef struct built_in
 {
 	char *cmd;
-	int (*func)();
+	int (*func)(char **comm, int err);
 } buil_t;
 
 /**
@@ -76,8 +76,10 @@ void _perror(char *argv[], char **comm, int n);
 
 /*** BUILT-IN ***/
 void _exi_t(char **comm, char *buff, char *argv[], int count);
-void _chdir(char **comm);
+int _chdir(char **comm, int err);
 
+/*** CHECKERS ***/
+int inspect_built_in(char **comm);
 
 /*** HANDLERS ***/
 void handle_hash_caution(char *buff);
@@ -100,7 +102,9 @@ char *_build(char *tok, char *value);
 /*** STRIP PROTOTYPES ***/
 void _strip_spaces(char *str);
 
-
+/*** HISTORY ***/
+int disp_hist(char **command, int execstate);
+int _hist(char *userinput);
 
 
 /*** STRING PROTOTYPES ***/
@@ -138,7 +142,7 @@ char *_memset(char *s, char b, unsigned int n);
 /*** ENVIRONMENT PROTOTYPES ***/
 void create_env(char ***env);
 int _env(void);
-void add_new_env(node_t **h, const char *name, const char *value);
+void add_new_env(node_t **h, char *name, char *value);
 void updateenv(node_t *h);
 int _setenv(const char *name, const char *value);
 int _unsetenv(const char *name);

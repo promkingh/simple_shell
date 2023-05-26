@@ -9,8 +9,7 @@
 int inspect_built_in(char **comm)
 {
 	buil_t ins[] = {
-		{"env", NULL}, {"setenv", NULL},
-		{"unsetenv", NULL}, {"cd", NULL},
+		{"cd", NULL},
 		{"history", NULL},
 		{NULL, NULL}
 	};

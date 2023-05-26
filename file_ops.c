@@ -18,13 +18,13 @@ void file_exit(char **comm, char *buff, FILE *fd)
 	{
 		free(buff);
 		free(comm);
-		close(fd);
+		fclose(fd);
 		exit(errno);
 	}
 
 	while (comm[1][a])
 	{
-		if (!isdigit(comm[1][a]))
+		if (_isalpha(comm[1][a++]) < 0)
 		{
 			perror(" illegal numer");
 			return;
@@ -35,7 +35,7 @@ void file_exit(char **comm, char *buff, FILE *fd)
 
 	free(buff);
 	free(comm);
-	close(fd);
+	fclose(fd);
 	exit(status);
 }
 
@@ -59,12 +59,12 @@ void access_file(char *buff, int count, FILE *fd, char *argv[])
 		file_exit(comm, buff, fd);
 	else if (inspect_built_in(comm) == 0)
 	{
-		status = handle_built_in(comm, sta);
+		status = handle_built_in(comm, status);
 		free(buff);
 	}
 	else
 	{
-		status = verify_comm(comm, buff, count, argv);
+		status = execute_comm(comm, buff, argv, count);
 		free(comm);
 	}
 }
@@ -86,11 +86,11 @@ void read_file(char *filename, char *argv[])
 	int a;
 
 	len = a = 0;
-	fd = open(filename, O_RDONLY);
+	fd = fopen(filename, "r");
 	if (fd == NULL)
 		exit(EXIT_FAILURE);
 
-	nread = get_line(&buff, &len, fd);
+	nread = getline(&buff, &len, fd);
 	while (nread != -1)
 	{
 		a++;
@@ -98,6 +98,6 @@ void read_file(char *filename, char *argv[])
 	}
 	if (buff)
 		free(buff);
-	close(fd);
+	fclose(fd);
 	exit(0);
 }

@@ -110,7 +110,7 @@ char *_build(char *tok, char *value)
 int _path(char **comm)
 {
 	struct stat buf;
-	char *path = _getenv("PATH"), *comm_path;
+	char *path = getenv("PATH"), *comm_path;
 	char *value = _strtok(path, ":");
 
 	while (value)
