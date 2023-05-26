@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 	/*signal(SIGINT, handle_seg);
 	*/
 
+	_prompt();
 	while (status)
 	{
 		a++;
