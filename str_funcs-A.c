@@ -42,11 +42,12 @@ void _puts(char *str)
 
 int _strlen(char *str)
 {
-	unsigned int a, len = 0;
+	int a, len = 0;
 
-	a = 0;
-	while (str[a])
+	for (a = 0; str[a] != '\0'; a++)
+	{
 		len++;
+	}
 
 	return (len);
 }

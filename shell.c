@@ -15,7 +15,7 @@ int main(void)
 		signal(SIGINT, handle_c);
 
 		if (isatty(STDIN_FILENO))
-			PRINT("$ ");
+			write(STDOUT_FILENO, "$ ", 2);
 
 		buff = read_comm();
 		cmd = comm_parser(buff);

@@ -94,13 +94,37 @@ int _strncmp(const char *str1, const char *str2, size_t n)
 
 char *_strcat(char *dest, char *src)
 {
-	int a, b;
+	int a, b, c, size;
+	char *temp;
 
-	for (a = 0; dest[a]; a++)
-		;
-	for (b = 0; src[b]; b++)
-		dest[a + b] = src[b];
-	dest[a + b] = '\0';
+	a = b = c = 0;
+	if (dest == NULL)
+		dest = "";
+	if (src == NULL)
+		src = "";
+	while (dest[a] != '\0')
+		a++;
+	while (src[b] != '\0')
+		b++;
 
-	return (dest);
+	size = a + b + 1;
+	temp = malloc(sizeof(char) * size);
+	if (temp == NULL)
+		return (NULL);
+
+	b = 0;
+	while (c < size)
+	{
+		if (c < a)
+			temp[c] = dest[c];
+		else
+		{
+			temp[c] = src[b];
+			b++;
+		}
+		c++;
+	}
+	temp[c - 1] = '\0';
+
+	return (temp);
 }
