@@ -1,4 +1,27 @@
 #include "shell.h"
+
+/**
+ * read_comm - reads user input from stream
+ *
+ * Return: nothing
+ */
+char *read_comm(void)
+{
+	char *buff = NULL;
+	size_t size = 0;
+	int nread = 0;
+
+	nread = getline(&buff, &size, stdin);
+	if (nread == EOF)
+	{
+		if ((isatty(STDIN_FILENO)) == 1)
+			PRINT("\n");
+		exit(0);
+	}
+
+	return (buff);
+}
+
 /**
  * exec_comm - executes the user command input
  *
@@ -9,38 +32,25 @@
  */
 int exec_comm(char **cmd, char **env)
 {
-	int x;
-	char *mstrA, *mstrB, *cpath, *tpath;
+	char *mstrA = malloc(8 * BUFSIZE), *cpath = malloc(8 * BUFSIZE);
+	char *mstrB = malloc(sizeof(char) * BUFSIZE), *tpath = NULL;
 	pid_t pid, cpid;
-
-	x = 0;
-	mstrA = malloc(8 * BUFFER);
-	mstrB = malloc(sizeof(char) * BUFFER);
-	cpath = malloc(8 * BUFFER);
-	tpath = NULL;
+	int x = 0;
 
 	if (comm_check(cmd, env, mstrA, cpath, mstrB))
-	{
 		return (1);
-	}
-
 	mstrB = _getenv(env, "PATH");
 	tpath = _strcat("/", cmd[0]);
 	pid = fork();
 	if (pid == 0)
-	{
-		cpath = strtok(mstrB, ":");
+	{	cpath = strtok(mstrB, ":");
 		while (cpath)
-		{
-			mstrA = _strcat(cpath, tpath);
+		{	mstrA = _strcat(cpath, tpath);
 			if ((access(mstrA, X_OK)) == 0)
-			{
-				free(tpath);
+			{	free(tpath);
 				x = execve(mstrA, cmd, env);
 				if (x == -1)
-				{
 					perror("hsh");
-				}
 			}
 			free(mstrA);
 			cpath = strtok(NULL, ":");
@@ -50,25 +60,16 @@ int exec_comm(char **cmd, char **env)
 		write(2, ": No such file or directory\n", 28);
 		exit(EXIT_SUCCESS);
 	}
-	else if(pid < 0)
-	{
+	else if (pid < 0)
 		perror("hsh");
-	}
 	else
 	{
-		do {
-			cpid = waitpid(pid, &x, WUNTRACED);
+		do {	cpid = waitpid(pid, &x, WUNTRACED);
 			if (cpid == -1)
-			{
 				perror("hsh");
-			}
 		} while (!WIFSIGNALED(x) && !WIFEXITED(x));
 	}
-	free(tpath);
-	free(mstrA);
-	free(cpath);
-	free(mstrB);
-
+	free(tpath), free(mstrA), free(cpath), free(mstrB);
 	return (1);
 }
 /**
@@ -81,16 +82,13 @@ int exec_comm(char **cmd, char **env)
  */
 int func_getter(char **cmd, char **env)
 {
-	int x; 
+	int x = 0;
 	char *builtin[6] = {"exit", "cd", "env", "unsetenv", "setenv", NULL};
 
-	x = 0;
-	if(cmd[0] == NULL)
-	{
+	if (cmd[0] == NULL)
 		return (1);
-	}
 
-	while(builtin[x] != NULL)
+	while (builtin[x] != NULL)
 	{
 		if (_strcmp(builtin[x], cmd[0]) == 0)
 		{

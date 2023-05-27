@@ -13,6 +13,7 @@ int _isdigit(int c)
 	else
 		return (0);
 }
+
 /**
  * atoi_close - exits the atoi function
  *
@@ -28,7 +29,7 @@ int atoi_close(char *str)
 	y = 0;
 	pid_max = 4194304;
 
-	if (str[y] == "-")
+	if (str[y] == '-')
 	{
 		return (1);
 	}
@@ -52,12 +53,12 @@ int atoi_close(char *str)
 	}
 	else
 	{
-	return (n);
+	return (x);
 	}
 }
 /**
- * _strcspn - calculates the number of characters before the 
- * first character of strB is found in strA
+ * _strcspn - calculates the number of characters before the
+ *		first character of strB is found in strA
  *
  * @strA: string argument
  * @strB: string argument
@@ -70,7 +71,7 @@ unsigned int _strcspn(char *strA, char *strB)
 
 	for (x = 0; strA[x]; x++)
 	{
-		if (_strchr(strB, strA))
+		if (_strchr(strB, strA[x]))
 			return (x);
 	}
 	return (x);

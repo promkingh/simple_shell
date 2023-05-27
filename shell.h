@@ -24,6 +24,18 @@ extern char **environ;
 #include <signal.h>
 #include <linux/limits.h>
 
+/****** PROTOTYPES ******/
+
+/*** MAIN ***/
+
+
+/*** BUILTIN PROTOTYPES ***/
+int exit_1(char **cmd);
+int _chdir(char **cmd);
+
+/*** HANDLER PROTOTYPES ***/
+void handle_c(int sig __attribute__((unused)));
+
 /*** STRING PROTOTYPES ***/
 int _putchar(char c);
 void _puts(char *str);
@@ -56,7 +68,16 @@ int comm_check(char **cmd, char **env, char *mst, char *cpath, char *tpath);
 char **comm_parser(char *cmd);
 
 /*** EXTRACTOR PROTOTYPES ***/
+char *read_comm(void);
 int exec_comm(char **cmd, char **env);
 int func_getter(char **cmd, char **env);
+
+/*** ENV PROTOTYPES ***/
+int _env(char **path);
+char *_getenv(char **env, char *cmd);
+int env_ind(char **env, char *cmd);
+int _unset_env(char **env, char **cmd);
+int _set_env(char **env, char **cmd);
+
 
 #endif /* SHELL_H */

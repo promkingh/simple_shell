@@ -9,40 +9,27 @@
  */
 int path_getter(char **cmd, char **env)
 {
-	int x, y;
-	char *delim, *tmp;
+	int x = 0, y = 0;
+	char *delim = "/", *tmp = NULL;
 	pid_t pid, cpid;
-
-	delim = "/";
-	tmp = NULL;
-	x = 0;
-	y = 0;
 
 	tmp = _strdup(cmd[0]);
 	if ((access(cmd[0], R_OK | X_OK)) == 0)
-	{
-		pid = fork();
+	{	pid = fork();
 		if (pid == 0)
-		{
-			x = execve(cmd[0], cmd, env);
+		{	x = execve(cmd[0], cmd, env);
 			if (x == -1)
-			{
 				perror("hsh");
-			}
 			exit(EXIT_SUCCESS);
 		}
 		else if (pid < 0)
-		{
 			perror("hsh");
-		}
 		else
 		{
 			do {
 				cpid = waitpid(pid, &x, WUNTRACED);
 				if (cpid == -1)
-				{
 					perror("hsh");
-				}
 			} while (!WIFSIGNALED(x) && !WIFEXITED(x));
 		}
 		free(tmp);
@@ -52,16 +39,14 @@ int path_getter(char **cmd, char **env)
 	{
 		for (y = 0; tmp[y] != '\0'; y++)
 		{
-			if (tmp(y) == delim[0])
-			{
-				errno = ENOENT;
+			if (tmp[y] == delim[0])
+			{	errno = ENOENT;
 				perror("hsh");
 				free(tmp);
 				return (1);
 			}
 		}
 	}
-
 	free(tmp);
 	return (0);
 }
@@ -99,7 +84,7 @@ int comm_check(char **cmd, char **env, char *mst, char *cpath, char *tpath)
 	{
 		shell_exit(NULL);
 	}
-	
+
 	return (0);
 }
 /**
@@ -115,7 +100,7 @@ char **comm_parser(char *cmd)
 	char *userinput, **cmdtokens;
 
 	x = 0;
-	cmdbuffer = BUFFER;
+	cmdbuffer = BUFSIZE;
 	userinput = NULL;
 	cmdtokens = NULL;
 
@@ -134,10 +119,10 @@ char **comm_parser(char *cmd)
 		x++;
 	}
 
-	if(x >= cmdbuffer)
+	if (x >= cmdbuffer)
 	{
-		cmdbuffer += BUFFER;
-		cmdtokens = _realloc(cmdtokens, BUFFER, cmdbuffer * sizeof(char *));
+		cmdbuffer += BUFSIZE;
+		cmdtokens = _realloc(cmdtokens, BUFSIZE, cmdbuffer * sizeof(char *));
 
 		if (!cmdtokens)
 		{
