@@ -24,8 +24,39 @@ extern char **environ;
 #include <signal.h>
 #include <linux/limits.h>
 
+/*** STRING PROTOTYPES ***/
+int _putchar(char c);
+void _puts(char *str);
+int _strlen(char *str);
+int _isalpha(int c);
+int _isdigit(int c);
+void rev_array(char *buff, int n);
+char *_strcpy(char *dest, char *src);
+char *_strncpy(char *dest, char *src, int n);
+int _strcmp(char *str1, char *str2);
+int _strncmp(const char *str1, const char *str2, size_t n);
+char *_strcat(char *dest, char *src);
+char *_strdup(char *str);
+char *_strchr(char *str, char c);
+int intlen(int num);
+int _atoi(char *str);
+int atoi_close(char *str);
+unsigned int _strcspn(char *strA, char *strB);
+char *_itoa(unsigned int n);
+char *_strtok(char *str, const char *delim);
 
+/*** MEMORY PROTOTYPE ***/
+char *_memcpy(char *dest, char *src, unsigned int n);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
+/*** PARSER PROTOTYPES ***/
+int path_getter(char **cmd, char **env);
+void shell_exit(char **cmd);
+int comm_check(char **cmd, char **env, char *mst, char *cpath, char *tpath);
+char **comm_parser(char *cmd);
 
+/*** EXTRACTOR PROTOTYPES ***/
+int exec_comm(char **cmd, char **env);
+int func_getter(char **cmd, char **env);
 
 #endif /* SHELL_H */
